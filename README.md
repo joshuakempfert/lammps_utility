@@ -2,33 +2,45 @@
 Python For Engineers: Project
 
 ## Description
+!!!!!!!!!input project description!!!!!!!!!!!!1
 
 ## Instructions
 
-1) Download Preliminary Files.
-2) Ensure all Preliminary Files are in the same working directory i.e. the same folder
-3) 'Run' all cells, in order, within the 'training.ipynb' Jupyter Notebook (Kernel --> Restart & Run All)
-	Note: Running this program will export all of the specified 'Secondary Files' to the working directory
-4) 'Run' all cells, in order, within the 'test.ipynb' Jupyter Notebook (Kernel --> Restart & Run All)
-	Note: Running this program will import all of the specified 'Secondary Files' to the working directory
-5) All Machine Learning Model/Algothrim Performance Results are displayed within the 'test.ipynb' file
+1) Download folder - 'lammps_utility'
+2) Ensure all Packaged Files are in the same working directory as specified below
+3) Set environment using 'XXXXX.yaml' files
+4) Open 'XXXX.ipynb'. Utilize the Jupyter Notebook as an instructional on how to use the package.
 
-## Preliminary Files
+## Package Files
+- Folder: 'lammps_utility': Folder Containing All 'lammps_utility' files
+ 	- 'thermo_reader.py': Package for extracting information from .log file and plotting to Plotly
+ 	-  'data_gui.py': Program for generating GUI with plotting features
+ 	-  'create_dislocation.log': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+ 	-  'analyzed.dump': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+ 	-  'units_info.yaml': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+	- Subfolder: 'dump_reader': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+		- 'box.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+		- 'common.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+		- 'ovito_tool.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+		- 'snapshot.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+		- 'snapshots.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+		- 'sources.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+		- 'visualize.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+ 	- Subfolder: 'exported_GUI_files': Files exported/imported when running GUI Software
+		- 'log_file.pkl': Directory of the selected .log file (string format)
+		- 'plot_parameters.pkl': List of the Selected Plot Parameters \[Runs, Thermodynamic Property]
+		- 'PlottedGraph.png': Image of Graph Being Plotted
+	- Subfolder: 'GUI_figures': Includes Images Displayed in GUI
+		- 'background.png': GUI Background Image
+		- 'Happy Holidays.png': Initial Image Displayed on GUI Main Screen
+		- 'logo.gif': GIF of LAMMPS logo
 
-Description: Files needed in order to run code
+## Comments
+
+1) The files within the 'exported_GUI_files' will be generated/overwritten as the 'data_gui.py' program is ran. These files have also been uploaded to the repository, however, they are not needed to initially run the program.
 
 
-- Folder: 'lammps_utility': Inlcudes...
-
-
-## Secondary Files
-
-Description: Files exported/imported through the Preliminary Files. 
-
-Note, these files will be generated/overwritten as preliminary files are ran. These files have also been uploaded to the repository, however, none are needed to run as they will be generated in the process.
-
-- 'log_file.pkl': Directory of the selected .log file (string format)
-- 'plot_parameters.pkl': List of the Selected Plot Parameters \[Runs, Thermodynamic Property]
-- 'PlottedGraph.png': Image of Graph Being Plotted
+## Creators
+Joshua Kempfurt, Alan Smith, MattNguyen
 
 
