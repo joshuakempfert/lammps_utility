@@ -156,7 +156,7 @@ where `index` is the key of the run. This will create an interactive `plotly` gr
 Joshua Kempfert, Alan Smith, Matthew Nguyen
 
 ## Additional Info
-https://www.ovito.org/
-https://www.ctcms.nist.gov/potentials/atomman/
-https://docs.lammps.org/Manual.html
+- https://www.ovito.org/
+- https://www.ctcms.nist.gov/potentials/atomman/
+- https://docs.lammps.org/Manual.html
 
