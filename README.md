@@ -21,7 +21,7 @@ This package automates common data analysis tasks for the molecular dynamics sof
 - 'lammps_utility': lammps_utility python package
  	- 'thermo_reader.py': Package for extracting information from .log file and plotting to Plotly
  	- 'data_gui.py': Program for generating GUI with plotting features
- 	- 'units_info.yaml': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+ 	- 'units_info.yaml': Contains LAMMPS unit style information for auto-detecting units in thermo_reader
 	- 'dump_reader': Subpackage for parsing and manipulating LAMMPS dump files
 		- 'box.py': Internal module implementing Box class
 		- 'common.py': Internal module containing some utilities
@@ -157,6 +157,6 @@ Joshua Kempfert, Alan Smith, Matthew Nguyen
 
 ## Additional Info
 https://www.ovito.org/
-
-
+https://www.ctcms.nist.gov/potentials/atomman/
+https://docs.lammps.org/Manual.html
 
