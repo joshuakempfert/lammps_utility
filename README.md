@@ -37,7 +37,7 @@ The documentation here is not exhaustive, but rather an overview of the most com
 
 ### dump_reader
 
-dump_reader implements parsing and manipulation of LAMMPS dump files through its Snapshot and Snapshots objects. These should be your only point of interface with the module, as shown:
+dump_reader implements parsing and manipulation of LAMMPS dump files through its Snapshot and Snapshots objects. These should be your only point of interface with the module, as shown. Snapshots and Snapshot are implemented to minimize RAM usage so that large dump files can be easily manipulated. Per-atom data is only loaded into memory when it is needed.
 
 ```python
 from lammps_utility.dump_reader import Snapshot, Snapshots
@@ -97,19 +97,29 @@ snapshots[0].custom = 1
 snapshots.custom["my_property"][0] = 1
 ```
 
-To convert a Snapshot object to an Atomman system object:
+Snapshot objects can be visualized in an interactive window if the Ovito module is installed:
 
 ```python
-system = snapshot.to_atomman() 
-
-# The following are equivalent:
-snapshots[0].custom = 1
-#
-snapshots.custom["my_property"][0] = 1
+snapshot.render()
 ```
 
+A Snapshot object can be converted to an Atomman system object. Note that Atomman system objects do not track timestep or custom data.
 
+```python
+system = snapshot.to_atomman()
+```
 
+To convert an Atomman system object to a snapshot:
+
+```python
+new_snapshot = Snapshot.from_atomman(system, timestep = 0, custom = None)
+```
+
+Finally, Snapshots objects can be written to a LAMMPS file:
+
+```python
+snapshots.write_dump("MyPath.dump")
+```
 
 
 ## Creators
