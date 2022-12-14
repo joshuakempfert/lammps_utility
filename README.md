@@ -70,7 +70,7 @@ snapshots_sum = snapshots + snapshots
 snapshot_sum = snapshots + snapshots[0]
 ```
 
-The `Snapshot` object collects relevant data, including the timestep and box information, which may be edited. However, per-atom data cannot be directly edited. Rather, the snapshot must be converted to another form (e.g. atomman System) and then converted back.
+The `Snapshot` object collects relevant data, including the timestep and box information, which may be edited. However, per-atom data cannot be directly edited. Rather, the snapshot must be converted to another form (e.g. atomman `System`) and then converted back.
 
 ```python
 snapshot.timestep = 10
@@ -119,8 +119,42 @@ Finally, `Snapshots` objects can be written to a LAMMPS file:
 snapshots.write_dump("MyPath.dump")
 ```
 
+## thermo_reader
+
+`thermo_reader` parses YAML thermodynamic tables from LAMMPS log files and offers interactive plotting functionality using `plotly`. LAMMPS thermodynamic tables are not in YAML format by default. See LAMMPS [thermo_style](https://docs.lammps.org/thermo_style.html) and [thermo_modify](https://docs.lammps.org/thermo_modify.html) documentation for instructions on converting your output format to YAML.
+
+Also, the use of the LAMMPS stdout file is preferable to the log file because the stdout file provides unit style information with runs. The script will function with either, but the unit style information allows `thermo_reader` to label units automatically.
+
+```python
+import lammps_utility.thermo_reader
+```
+
+To parse your file, call:
+
+```python
+dataframes = thermo_reader.parse_log_file("LogFilePath.log")
+```
+
+This returns a one-indexed `dict` of `Pandas` DataFrames corresponding to the thermodynamic tables for each run. Additional information is stored in the dataframes `attrs` `dict` if it was detected, i.e.:
+
+```python
+dataframes[0].attrs
+```
+
+An interactive plotting function is also included. Using the previous results:
+
+```python
+thermo_reader.plot_log_data(dataframes, index = 1, y = "Press", x = None, write_path = None):
+```
+
+where `index` is the key of the run. This will create an interactive `plotly` graph in your browser, with the units auto-populated if they are available (see discussion above).
+
 
 ## Creators
 Joshua Kempfert, Alan Smith, Matthew Nguyen
+
+## Additional Info
+https://www.ovito.org/
+
 
 
