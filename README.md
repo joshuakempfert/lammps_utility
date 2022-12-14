@@ -7,10 +7,12 @@ This package automates common data analysis tasks for the molecular dynamics sof
 
 ## Download Instructions
 
-1) Download folder - 'lammps_utility'
+1) Download directory
 2) Ensure all Packaged Files are in the same working directory as specified below
-3) Set environment using 'XXXXX.yaml' files
-4) Open 'XXXX.ipynb'. Utilize the Jupyter Notebook as an instructional on how to use the package.
+3) Create environment using 'environment.yaml' file. Note: This environment is for Windows-only.
+	`conda env create --file environment.yml`
+
+4) Open 'example.ipynb'. Utilize the Jupyter Notebook as an instructional on how to use the package.
 
 ## Files 
 - 'example.log': Example log file to test notebook functionality on
