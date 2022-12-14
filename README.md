@@ -2,45 +2,117 @@
 Python For Engineers: Project
 
 ## Description
-!!!!!!!!!input project description!!!!!!!!!!!!1
+This package automates common data analysis tasks for the molecular dynamics software LAMMPS. Namely, this package offers a parser for reading LAMMPS therodynamic data from log files, a dump file parser/manipulator, and an interactive GUI implementing basic plotting features. 
 
-## Instructions
+
+## Download Instructions
 
 1) Download folder - 'lammps_utility'
 2) Ensure all Packaged Files are in the same working directory as specified below
 3) Set environment using 'XXXXX.yaml' files
 4) Open 'XXXX.ipynb'. Utilize the Jupyter Notebook as an instructional on how to use the package.
 
-## Package Files
-- Folder: 'lammps_utility': Folder Containing All 'lammps_utility' files
+## Files 
+- 'example.log': Example log file to test notebook functionality on
+- 'example.dump': Example dump file to test notebook functionality on
+- 'example.ipynb': Example notebook
+- 'lammps_utility': lammps_utility python package
  	- 'thermo_reader.py': Package for extracting information from .log file and plotting to Plotly
- 	-  'data_gui.py': Program for generating GUI with plotting features
- 	-  'create_dislocation.log': !!!!JOSHUA - WRITE DESCRIPTION!!!!
- 	-  'analyzed.dump': !!!!JOSHUA - WRITE DESCRIPTION!!!!
- 	-  'units_info.yaml': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-	- Subfolder: 'dump_reader': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-		- 'box.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-		- 'common.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-		- 'ovito_tool.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-		- 'snapshot.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-		- 'snapshots.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-		- 'sources.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
-		- 'visualize.py': !!!!JOSHUA - WRITE DESCRIPTION!!!!
- 	- Subfolder: 'exported_GUI_files': Files exported/imported when running GUI Software
-		- 'log_file.pkl': Directory of the selected .log file (string format)
-		- 'plot_parameters.pkl': List of the Selected Plot Parameters \[Runs, Thermodynamic Property]
-		- 'PlottedGraph.png': Image of Graph Being Plotted
+ 	- 'data_gui.py': Program for generating GUI with plotting features
+ 	- 'units_info.yaml': !!!!JOSHUA - WRITE DESCRIPTION!!!!
+	- 'dump_reader': Subpackage for parsing and manipulating LAMMPS dump files
+		- 'box.py': Internal module implementing Box class
+		- 'common.py': Internal module containing some utilities
+		- 'ovito_tool.py': Internal module containing Ovito interfacing
+		- 'snapshot.py': Internal module implementing Snapshot class
+		- 'snapshots.py': Internal module implementing Snapshots class
+		- 'sources.py': Internal module for parsing LAMMPS dump file format
+		- 'visualize.py': Internal module implementing Ovito view window
 	- Subfolder: 'GUI_figures': Includes Images Displayed in GUI
 		- 'background.png': GUI Background Image
 		- 'Happy Holidays.png': Initial Image Displayed on GUI Main Screen
 		- 'logo.gif': GIF of LAMMPS logo
+## Basic Usage
+The documentation here is not exhaustive, but rather an overview of the most common features and functions. Refer to the docstrings for complete documentation.
 
-## Comments
+### dump_reader
 
-1) The files within the 'exported_GUI_files' will be generated/overwritten as the 'data_gui.py' program is ran. These files have also been uploaded to the repository, however, they are not needed to initially run the program.
+dump_reader implements parsing and manipulation of LAMMPS dump files through its Snapshot and Snapshots objects. These should be your only point of interface with the module, as shown:
+
+```python
+from lammps_utility.dump_reader import Snapshot, Snapshots
+```
+
+A Snapshot object, as its name suggests, is a snapshot of the system and its atoms. A Snapshots object is a container of Snapshot objects. A Snapshots object has a fixed collection of Snapshot objects, which it always owns. To create a Snapshots object from a LAMMPS dump file, call the `from_dump` constructor:
+
+```python
+snapshots = Snapshots.from_dump("example.dump")
+```
+
+Snapshots objects can be sliced to obtain the underlying Snapshot objects as tuples
+
+```python
+snapshot_object = snapshots[0]
+snapshot_objects = snapshots[0:10]
+```
+
+Further, a new Snapshots object can be sliced:
+
+```python
+reversed_snapshots = snapshots.new[::-1]
+```
+
+Snapshots can be summed with a Snapshot object or another Snapshots object
+
+```python
+snapshots_sum = snapshots + snapshots
+
+snapshot_sum = snapshots + snapshots[0]
+```
+
+The Snapshot object collects relevant data, including the timestep and box information, which may be edited. However, per-atom data cannot be directly edited. Rather, the Snapshot must be converted to another form (e.g. atomman System) and then converted back.
+
+```python
+snapshot.timestep = 10
+snapshot.box.bounds[0] = (-10, 10)
+```
+
+This data is conglomerated by Snapshots, so it may be edited on the Snapshots level.
+
+```python
+snapshots.timesteps = 0 # Assign 0 to all timesteps
+snapshots.boxes.bounds *= 2
+```
+
+
+Snapshot objects implement a dict-like object called `custom` where custom global properties can be defined and will be stored and read from LAMMPS dump files. `custom` will contain any custom global data from dump files read in. New custom data should be created at the Snapshots level:
+
+
+```python
+snapshots.custom["my_property"] = 0 # Initialize property as 0 for all snapshots
+
+# The following are equivalent:
+snapshots[0].custom = 1
+#
+snapshots.custom["my_property"][0] = 1
+```
+
+To convert a Snapshot object to an Atomman system object:
+
+```python
+system = snapshot.to_atomman() 
+
+# The following are equivalent:
+snapshots[0].custom = 1
+#
+snapshots.custom["my_property"][0] = 1
+```
+
+
+
 
 
 ## Creators
-Joshua Kempfurt, Alan Smith, MattNguyen
+Joshua Kempfert, Alan Smith, Matthew Nguyen
 
 
